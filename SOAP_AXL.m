@@ -13,10 +13,10 @@
 
 NSString *const _VersionHeader = @"\"CUCM:DB ver=";
 NSString *const _SoapStartEnvelope = @"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns=\"http://www.cisco.com/AXL/API/";
-NSString *const _SoapEndEnvelope = @"</SOAP-ENV:Envelope>";
+NSString *const _SoapEndEnvelope = @"</soapenv:Envelope>";
 NSString *const _Basic = @"Basic ";
 
--(void)connect{
+-(NSString *)connect{
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:self.url]];
     [request setHTTPMethod:@"POST"];
     [request addValue:@"text/html" forHTTPHeaderField:@"Content-Type"];
@@ -28,6 +28,8 @@ NSString *const _Basic = @"Basic ";
     [request addValue:slen forHTTPHeaderField:@"Content-Length"];
     [request addValue:self.action forHTTPHeaderField:@"SOAPAction"];
     [request setHTTPBody:self.soap];
+    
+    NSMutableString *resultString = [[NSMutableString alloc] init];
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -49,8 +51,9 @@ NSString *const _Basic = @"Basic ";
         
         NSLog(@"Received bytes from the server :%lu", (unsigned long)[webData length]);
         NSMutableString *resultString = [[NSMutableString alloc] initWithBytes:[webData bytes] length:[webData length] encoding:NSUTF8StringEncoding];
-        NSLog(@"result %@",resultString)
+        NSLog(@"result %@",resultString);
     }];
+    return resultString;
 }
                                       
                                       
