@@ -10,6 +10,8 @@
 #import "SOAP_AXL.h"
 
 @implementation SOAP_AXL
+    
+@synthesize url,user,password,action,version,authorization,soap;
 
 NSString *const _VersionHeader = @"\"CUCM:DB ver=";
 NSString *const _SoapStartEnvelope = @"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns=\"http://www.cisco.com/AXL/API/";
