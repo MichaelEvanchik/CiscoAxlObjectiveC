@@ -54,7 +54,13 @@ NSString *const _Basic = @"Basic ";
         NSLog(@"Received bytes from the server :%lu", (unsigned long)[webData length]);
         NSMutableString *resultString = [[NSMutableString alloc] initWithBytes:[webData bytes] length:[webData length] encoding:NSUTF8StringEncoding];
         NSLog(@"result %@",resultString);
+        [resultString release];
+        resultString = nil;
     }];
+    [resultString release];
+    resultString = nil;
+    [request release];
+    request = nil;
     return resultString;
 }
                                       
