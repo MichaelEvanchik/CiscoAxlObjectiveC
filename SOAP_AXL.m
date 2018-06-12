@@ -56,6 +56,8 @@ NSString *const _Basic = @"Basic ";
         NSLog(@"result %@",resultString);
         [resultString release];
         resultString = nil;
+        [webData release];
+        webData = nil;
     }];
     [resultString release];
     resultString = nil;
@@ -83,5 +85,10 @@ NSString *const _Basic = @"Basic ";
         self.authorization = authValue;
     }
     return self;
+}
+
+-(void)deallocate{
+    [self release]
+    self = nil;
 }
 @end
