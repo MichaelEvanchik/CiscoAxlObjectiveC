@@ -72,7 +72,7 @@ NSString *const _Basic = @"Basic ";
 -(id) initUrl:(NSString *)url initVersion:(NSString *)version initUser:(NSString *)user initPassword:(NSString *)password initAction:(NSString *)action initSoap:(NSString *)soap
 {
     self = [super init];
-    if(self){
+    if(self != nil){
         self.url = url;
         self.user = user;
         self.password = password;
