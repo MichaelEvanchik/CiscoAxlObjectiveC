@@ -88,6 +88,12 @@ NSString *const _Basic = @"Basic ";
 }
 
 -(void)deallocate{
+    self.url = nil;
+    self.user = nil;
+    self.password = nil;
+    self.action = nill;
+    self.soap = nil;
+    self.authorization = nil;
     [self release]
     self = nil;
 }
