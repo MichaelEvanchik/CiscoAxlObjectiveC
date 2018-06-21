@@ -31,7 +31,7 @@ NSString *const _Basic = @"Basic ";
     [request addValue:self.action forHTTPHeaderField:@"SOAPAction"];
     [request setHTTPBody:self.soap];
     
-    NSMutableString *resultString = [[NSMutableString alloc] init];
+    __block NSMutableString *resultString = nil;
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -52,18 +52,25 @@ NSString *const _Basic = @"Basic ";
         [webData appendData:data];
         
         NSLog(@"Received bytes from the server :%lu", (unsigned long)[webData length]);
-        NSMutableString *resultString = [[NSMutableString alloc] initWithBytes:[webData bytes] length:[webData length] encoding:NSUTF8StringEncoding];
-        NSLog(@"result %@",resultString);
-        [resultString release];
-        resultString = nil;
+        resultString = [[NSMutableString alloc] initWithBytes:[webData bytes]
+                                                       length:[webData length]
+                                                     encoding:NSUTF8StringEncoding];
         [webData release];
-        webData = nil;
+//         webData = nil;
+
+        NSLog(@"result %@",resultString);
+//         [resultString release];
+//         resultString = nil;
     }];
-    [resultString release];
-    resultString = nil;
+    
+    //here.
+    
+//     [resultString release];
+//     resultString = nil;
     [request release];
     request = nil;
-    return resultString;
+    
+    return [resultString autorelease];
 }
                                       
                                       
